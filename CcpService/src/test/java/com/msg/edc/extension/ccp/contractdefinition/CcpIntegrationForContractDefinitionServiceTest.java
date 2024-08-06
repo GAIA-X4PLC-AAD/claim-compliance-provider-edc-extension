@@ -36,7 +36,7 @@ class CcpIntegrationForContractDefinitionServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        service = new CcpIntegrationForContractDefinitionService();
+        service = new CcpIntegrationForContractDefinitionService(this.monitor);
     }
 
     @Test
@@ -67,7 +67,7 @@ class CcpIntegrationForContractDefinitionServiceTest {
         when(assetIndex.findById("asset2")).thenReturn(asset2);
 
         // Action
-        String result = service.getVerifiablePresentationsFromAssets(monitor, contractDefinition, assetIndex);
+        String result = service.getVerifiablePresentationsFromAssets(contractDefinition, assetIndex);
 
         // Test
         ObjectMapper objectMapper = new ObjectMapper();
@@ -84,7 +84,7 @@ class CcpIntegrationForContractDefinitionServiceTest {
         when(assetIndex.findById("asset1")).thenReturn(null);
 
         // Action
-        String result = service.getVerifiablePresentationsFromAssets(monitor, contractDefinition, assetIndex);
+        String result = service.getVerifiablePresentationsFromAssets(contractDefinition, assetIndex);
 
         // Test
         assertThat(result).isNull();
