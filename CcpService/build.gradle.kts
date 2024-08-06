@@ -16,9 +16,6 @@ plugins {
     java
 }
 
-group = "com.msg.edc.extension.ccp"
-version = "1.0.0"
-
 dependencies {
     val edcVersion: String by project
     val retrofitVersion: String by project
