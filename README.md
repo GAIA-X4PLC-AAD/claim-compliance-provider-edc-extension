@@ -36,6 +36,12 @@ When a contract definition was created this contract definition should be passed
 
 ### Configuration
 
+<dependency>
+  <groupId>com.msg.edc.extension.ccp</groupId>
+  <artifactId>claim-compliance-provider-edc-extension</artifactId>
+  <version>1.0.0</version>
+</dependency>
+
 ## Contribution
 Feel free to contribute to this project. You can do this by pushing a new branch and creating a pull request or by a fork of this repository with a pull request.
 

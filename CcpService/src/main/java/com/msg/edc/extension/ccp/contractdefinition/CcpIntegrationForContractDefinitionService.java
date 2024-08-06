@@ -18,15 +18,20 @@ import static org.eclipse.edc.spi.CoreConstants.EDC_NAMESPACE;
  */
 public class CcpIntegrationForContractDefinitionService {
 
+    private final Monitor monitor;
+
+    public CcpIntegrationForContractDefinitionService(final Monitor monitor) {
+        this.monitor = monitor;
+    }
+
     /**
      * Extracts the CCP-Response from the assets of the contract definition.
-     * @param monitor The monitor to log messages
      * @param contractDefinition The contract definition to extract the CCP-Response from
      * @param assetIndex The asset index to get the assets from
      * @return The CCP-Responses of all assets as a JSON array (string) or null if no CCP-Response was found
      * @throws CcpException If the CCP-Response could not be extracted
      */
-    public String getVerifiablePresentationsFromAssets(final Monitor monitor, final ContractDefinition contractDefinition, final AssetIndex assetIndex) throws CcpException {
+    public String getVerifiablePresentationsFromAssets(final ContractDefinition contractDefinition, final AssetIndex assetIndex) throws CcpException {
         final List<String> ccpResponses = new ArrayList<>();
         contractDefinition.getAssetsSelector().forEach(criterion -> {
             final Object operandLeft = criterion.getOperandLeft();
@@ -34,24 +39,24 @@ public class CcpIntegrationForContractDefinitionService {
                 final Object operandRight = criterion.getOperandRight();
                 final Asset asset = assetIndex.findById(operandRight.toString());
                 if (asset != null) {
-                    monitor.debug("Asset found: " + asset.getId());
+                    this.monitor.debug("Asset found: " + asset.getId());
                     final Object ccpResponse = asset.getProperty(EDC_NAMESPACE + CLAIM_COMPLIANCE_PROVIDER_RESPONSE_FIELD_NAME);
                     if (ccpResponse == null) {
-                        monitor.warning("No CCP-Response found for Asset with id " + asset.getId());
+                        this.monitor.warning("No CCP-Response found for Asset with id " + asset.getId());
                     } else {
-                        monitor.debug("CCP-Response found for Asset with id " + asset.getId());
+                        this.monitor.debug("CCP-Response found for Asset with id " + asset.getId());
                         ccpResponses.add(ccpResponse.toString());
                     }
 
                 } else {
-                    monitor.warning("Asset " + operandRight + " not found. Skipping this criterion.");
+                    this.monitor.warning("Asset " + operandRight + " not found. Skipping this criterion.");
                 }
             }
         });
         if (ccpResponses.isEmpty()) {
             return null;
         }
-        monitor.info("Found " + ccpResponses.size() + " CCP-Responses");
+        this.monitor.info("Found " + ccpResponses.size() + " CCP-Responses");
         return getJsonArray(ccpResponses);
     }
 

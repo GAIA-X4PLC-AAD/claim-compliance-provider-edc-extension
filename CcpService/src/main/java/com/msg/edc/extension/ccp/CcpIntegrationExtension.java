@@ -1,6 +1,7 @@
 package com.msg.edc.extension.ccp;
 
 import com.msg.edc.extension.ccp.asset.CcpIntegrationForAssetService;
+import com.msg.edc.extension.ccp.contractdefinition.CcpIntegrationForContractDefinitionService;
 import org.eclipse.edc.runtime.metamodel.annotation.Extension;
 import org.eclipse.edc.runtime.metamodel.annotation.Provides;
 import org.eclipse.edc.spi.monitor.Monitor;
@@ -21,5 +22,6 @@ public class CcpIntegrationExtension implements ServiceExtension {
     public void initialize(ServiceExtensionContext context) {
         final Monitor monitor = context.getMonitor();
         context.registerService(CcpIntegrationForAssetService.class, new CcpIntegrationForAssetService(monitor));
+        context.registerService(CcpIntegrationForContractDefinitionService.class, new CcpIntegrationForContractDefinitionService(monitor));
     }
 }
