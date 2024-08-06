@@ -10,7 +10,7 @@
  *  Contributors:
  *      msg group - initial implementation
  */
-rootProject.name = "Claim-Compliance-Provider-EDC-Extension"
+rootProject.name = "claim-compliance-provider-edc-extension"
 
 pluginManagement {
     repositories {
