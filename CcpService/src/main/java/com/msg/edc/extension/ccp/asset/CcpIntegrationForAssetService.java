@@ -92,7 +92,7 @@ public class CcpIntegrationForAssetService {
     private boolean isValidJson(final String jsonString) {
         final ObjectMapper objectMapper = new ObjectMapper();
         try {
-            JsonNode node = objectMapper.readTree(jsonString);
+            final JsonNode node = objectMapper.readTree(jsonString);
             return node.isObject() || node.isArray();
         } catch (Exception e) {
             monitor.warning("Invalid JSON string detected: " + jsonString);
@@ -102,7 +102,7 @@ public class CcpIntegrationForAssetService {
 
     private String getRawJson(final String jsonString) throws CcpException{
         final ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode node = null;
+        final JsonNode node;
         try {
             node = objectMapper.readTree(jsonString);
         } catch (JsonProcessingException e) {
