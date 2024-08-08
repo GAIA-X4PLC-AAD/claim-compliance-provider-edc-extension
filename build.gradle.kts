@@ -4,8 +4,8 @@ plugins {
     `maven-publish`
 }
 
-group = "com.msg.edc.extension.ccp"
-version = "1.1.0"
+group = "com.msg.plcaad.edc"
+version = "1.0.0"
 
 repositories {
     mavenLocal()
